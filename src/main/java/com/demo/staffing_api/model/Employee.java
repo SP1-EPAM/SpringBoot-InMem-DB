@@ -1,52 +1,53 @@
 package com.demo.staffing_api.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name="employee_info")
+@Table(name = "employees")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
 
     @Column
+    @NonNull
     private String firstName;
 
     @Column
+    @NonNull
     private String lastName;
 
-    protected Employee() {}
+    @Column
+    @NonNull
+    private String email;
 
-    public Employee(String firstName, String lastName){
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    @Column
+    @NonNull
+    private Integer age;
 
-    public Long getId() {
-        return id;
-    }
+    @Column
+    @NonNull
+    private String gender;
 
-    public String getFirstName() {
-        return firstName;
-    }
+    @Column
+    private Integer managerId;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    @Column
+    @NonNull
+    private Double salary;
 
-    public String getLastName() {
-        return lastName;
-    }
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Address address;
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Customer[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName);
+    public void setAddress(Address address) {
+        this.address = address;
+        this.address.setEmployee(this);
     }
 }
