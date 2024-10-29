@@ -14,23 +14,23 @@ import lombok.*;
 @EqualsAndHashCode
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "address_id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "address_id")
+  private Long id;
 
-    @Column
-    private String street;
+  @Column
+  private String street;
 
-    @Column
-    private String city;
+  @Column
+  private String city;
 
-    @Column
-    private String state;
+  @Column
+  private String state;
 
-    @Column
-    private String country;
+  @Column
+  private String country;
 
-    @Column
-    private  String zipCode;
+  @Column
+  private  String zipCode;
 }
