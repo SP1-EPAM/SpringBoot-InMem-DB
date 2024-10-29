@@ -36,6 +36,10 @@ public class EmployeeService {
             Employee updatedEmpData = empData.get();
             updatedEmpData.setFirstName(employee.getFirstName());
             updatedEmpData.setLastName(employee.getLastName());
+            updatedEmpData.setAge(employee.getAge());
+            updatedEmpData.setGender(employee.getGender());
+            updatedEmpData.setSalary(employee.getSalary());
+            updatedEmpData.setManagerId(employee.getManagerId());
             return employeeRepository.save(updatedEmpData);
         }
         return null;
