@@ -4,14 +4,19 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "address")
+@Table(name = "addresses")
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 public class Address {
 
     @Id
-    @Column(name = "addr_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "address_id")
     private Long id;
 
     @Column
@@ -28,9 +33,4 @@ public class Address {
 
     @Column
     private  String zipCode;
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "addr_id")
-    private Employee employee;
 }

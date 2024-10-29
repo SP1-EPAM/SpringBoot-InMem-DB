@@ -5,13 +5,17 @@ import lombok.*;
 
 @Entity
 @Table(name = "employees")
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -42,12 +46,7 @@ public class Employee {
     @NonNull
     private Double salary;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
-
-    public void setAddress(Address address) {
-        this.address = address;
-        this.address.setEmployee(this);
-    }
 }

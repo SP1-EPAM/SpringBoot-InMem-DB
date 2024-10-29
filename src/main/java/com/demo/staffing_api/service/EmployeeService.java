@@ -1,7 +1,9 @@
 package com.demo.staffing_api.service;
 
+import com.demo.staffing_api.model.Address;
 import com.demo.staffing_api.model.Employee;
 import com.demo.staffing_api.repository.EmployeeRepository;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +36,8 @@ public class EmployeeService {
         Optional<Employee> empData = employeeRepository.findById(empId);
         if (empData.isPresent()) {
             Employee updatedEmpData = empData.get();
-            updatedEmpData.setFirstName(employee.getFirstName());
-            updatedEmpData.setLastName(employee.getLastName());
-            updatedEmpData.setAge(employee.getAge());
-            updatedEmpData.setGender(employee.getGender());
-            updatedEmpData.setSalary(employee.getSalary());
-            updatedEmpData.setManagerId(employee.getManagerId());
+            this.updateEmployeeDetails(updatedEmpData, employee);
+            this.updateEmployeeAddress(updatedEmpData.getAddress(), employee.getAddress());
             return employeeRepository.save(updatedEmpData);
         }
         return null;
@@ -51,5 +49,22 @@ public class EmployeeService {
 
     public void deleteAllEmployee() {
         employeeRepository.deleteAll();
+    }
+
+    private void updateEmployeeDetails(@NonNull Employee empData, @NonNull Employee employee) {
+            empData.setFirstName(employee.getFirstName());
+            empData.setLastName(employee.getLastName());
+            empData.setAge(employee.getAge());
+            empData.setGender(employee.getGender());
+            empData.setSalary(employee.getSalary());
+            empData.setManagerId(employee.getManagerId());
+    }
+
+    private void updateEmployeeAddress(@NonNull Address addrData, @NonNull Address address) {
+        addrData.setStreet(address.getStreet());
+        addrData.setCity(address.getCity());
+        addrData.setState(address.getState());
+        addrData.setCountry(address.getCountry());
+        addrData.setZipCode(address.getZipCode());
     }
 }
